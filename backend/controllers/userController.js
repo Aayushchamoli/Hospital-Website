@@ -287,12 +287,18 @@ const verifyRazorpay = async (req,res) => {
     if (orderInfo.status === 'paid') {
 
       await appointmentModel.findByIdAndUpdate(orderInfo.receipt,{payment:true})
-
-      res.json({success:true,message:"payment successful"})
-      
+      // Redirect to frontend success page
+      return res.redirect(`${process.env.FRONTEND_URL}/payment-success`);
     } else {
-      res.json({success:false,message:"payment failed"})
+      // Redirect to frontend failure page
+      return res.redirect(`${process.env.FRONTEND_URL}/payment-failure`);
     }
+
+      //res.json({success:true,message:"payment successful"})
+      
+    //} else {
+      //res.json({success:false,message:"payment failed"})
+    //}
 
 
 
